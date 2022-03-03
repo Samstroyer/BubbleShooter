@@ -28,10 +28,15 @@ class Player
 
     private void Projectiles()
     {
-        foreach (Projectile projectile in shots)
+        for (int i = shots.Count - 1; i >= 0; i--)
         {
-            projectile.Update();
-            projectile.Show();
+            shots[i].Update();
+            shots[i].Show();
+            if (shots[i].OutOfScreen())
+            {
+                shots[i].Despawn();
+                shots.RemoveAt(i);
+            }
         }
     }
 
@@ -42,7 +47,7 @@ class Player
 
     public void Shoot()
     {
-        shots.Add(new Projectile(Convert.ToInt32(x)));
+        shots.Add(new Projectile(Convert.ToInt32(x), y));
     }
 
     public void Move(int dir)

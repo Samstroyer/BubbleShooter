@@ -28,11 +28,11 @@ class Engine
             p.Shoot();
         }
 
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT))
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT) && !Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
         {
             p.Move(-1);
         }
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
+        else if (!Raylib.IsKeyDown(KeyboardKey.KEY_LEFT) && Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
         {
             p.Move(1);
         }

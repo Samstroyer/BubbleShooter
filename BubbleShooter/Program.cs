@@ -9,10 +9,7 @@ namespace BubbleShooter
         {
             Setup();
             Engine e = new Engine();
-            while (!Raylib.WindowShouldClose())
-            {
-                e.Run();
-            }
+            e.Run();
         }
 
         static void Setup()
