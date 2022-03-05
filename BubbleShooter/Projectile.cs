@@ -2,15 +2,14 @@ using Raylib_cs;
 
 class Projectile
 {
-    int x;
+    ushort x;
     float y;
     float speed = 0.2f;
-    Texture2D projectileImg = Raylib.LoadTexture(@"Images\bullet.png");
 
-    public Projectile(int startX, int startY)
+    public Projectile(short startX, short startY)
     {
-        x = startX;
-        y = startY;
+        x = (ushort)(startX + 23);
+        y = startY - 15;
     }
 
     public void Update()
@@ -20,12 +19,7 @@ class Projectile
 
     public void Show()
     {
-        Raylib.DrawTexture(projectileImg, x, (int)y, Color.WHITE);
-    }
-
-    public void Despawn()
-    {
-        Raylib.UnloadTexture(projectileImg);
+        Raylib.DrawTexture(IMGASE.projectileImg, x, (int)y, Color.WHITE);
     }
 
     public bool OutOfScreen()

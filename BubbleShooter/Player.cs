@@ -13,7 +13,7 @@ class Player
 
     public Player()
     {
-        x = Raylib.GetScreenWidth() / 2;
+        x = (short)(Raylib.GetScreenWidth() / 2);
         Image sizer = Raylib.LoadImage(@"Images/devil.png");
         Raylib.ImageResize(ref sizer, 50, 50);
         devil = Raylib.LoadTextureFromImage(sizer);
@@ -32,9 +32,9 @@ class Player
         {
             shots[i].Update();
             shots[i].Show();
+
             if (shots[i].OutOfScreen())
             {
-                shots[i].Despawn();
                 shots.RemoveAt(i);
             }
         }
@@ -47,7 +47,7 @@ class Player
 
     public void Shoot()
     {
-        shots.Add(new Projectile(Convert.ToInt32(x), y));
+        shots.Add(new Projectile((short)x, y));
     }
 
     public void Move(int dir)
