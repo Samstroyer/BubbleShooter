@@ -1,3 +1,4 @@
+using System.Numerics;
 using Raylib_cs;
 using System;
 
@@ -18,6 +19,9 @@ class Bubble
     States state;
     bool travelingRight;
     float speed = 0.15f;
+    float gravity = 0.25f;
+
+    Vector2 boundaries = new Vector2(Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
 
     public Bubble(short startX, short startY, byte startingState, bool turnRight)
     {
@@ -42,36 +46,46 @@ class Bubble
     {
         sbyte dir = travelingRight ? (sbyte)1 : (sbyte)-1;
         x += (dir * speed);
+        y += gravity;
+        gravity += 0.0005f;
+
+        if (y >= boundaries.Y - CurrentTexture().height)
+        {
+            gravity = -0.5f;
+        }
+
+        if (x <= 0 || x >= boundaries.X - CurrentTexture().width)
+        {
+            travelingRight = !travelingRight;
+        }
     }
 
-    private void Show()
+    private Texture2D CurrentTexture()
     {
         switch ((byte)state)
         {
             case 0b_0000_0001:
-                Raylib.DrawTexture(IMGLIB.bubbleImgArr[0], (short)x, (short)y, Color.WHITE);
-                break;
+                return IMGLIB.bubbleImgArr[0];
             case 0b_0000_0010:
-                Raylib.DrawTexture(IMGLIB.bubbleImgArr[1], (short)x, (short)y, Color.WHITE);
-                break;
+                return IMGLIB.bubbleImgArr[1];
             case 0b_0000_0100:
-                Raylib.DrawTexture(IMGLIB.bubbleImgArr[2], (short)x, (short)y, Color.WHITE);
-                break;
+                return IMGLIB.bubbleImgArr[2];
             case 0b_0000_1000:
-                Raylib.DrawTexture(IMGLIB.bubbleImgArr[3], (short)x, (short)y, Color.WHITE);
-                break;
+                return IMGLIB.bubbleImgArr[3];
             case 0b_0001_0000:
-                Raylib.DrawTexture(IMGLIB.bubbleImgArr[4], (short)x, (short)y, Color.WHITE);
-                break;
+                return IMGLIB.bubbleImgArr[4];
             case 0b_0010_0000:
-                Raylib.DrawTexture(IMGLIB.bubbleImgArr[5], (short)x, (short)y, Color.WHITE);
-                break;
+                return IMGLIB.bubbleImgArr[5];
             case 0b_0100_0000:
-                Raylib.DrawTexture(IMGLIB.bubbleImgArr[6], (short)x, (short)y, Color.WHITE);
-                break;
+                return IMGLIB.bubbleImgArr[6];
             default:
-                Console.WriteLine("This should not be happening!");
-                break;
+                Console.WriteLine("This should not be seen!\nYou get the small straw (bubble) in return...");
+                return IMGLIB.bubbleImgArr[0];
         }
+    }
+
+    private void Show()
+    {
+        Raylib.DrawTexture(CurrentTexture(), (short)x, (short)y, Color.WHITE);
     }
 }

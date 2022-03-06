@@ -4,7 +4,8 @@ using Raylib_cs;
 class Engine
 {
     Player p = new Player();
-    Bubble b = new Bubble(200, 750, 0b_0000_0100, true);
+    //Levels lvls = new Levels();
+    //Bubble b = new Bubble(200, 400, 0b_0000_0100, true);
 
 
     public void Run()
@@ -45,6 +46,6 @@ class Engine
 
     private void Mousebinds()
     {
-        b.Update();
+
     }
 }
