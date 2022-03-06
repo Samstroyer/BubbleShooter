@@ -7,7 +7,7 @@ class Player
     float speed = 0.2f;
     float x;
     public const int y = 750;
-    List<Projectile> shots = new List<Projectile>();
+    public List<Projectile> shots = new List<Projectile>();
     Texture2D devil;
 
 
@@ -24,6 +24,27 @@ class Player
     {
         Show();
         Projectiles();
+        Movement();
+    }
+
+    private void Movement()
+    {
+        if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
+        {
+            Shoot();
+        }
+
+        bool leftMovement = Raylib.IsKeyDown(KeyboardKey.KEY_A) || Raylib.IsKeyDown(KeyboardKey.KEY_LEFT);
+        bool rightMovement = Raylib.IsKeyDown(KeyboardKey.KEY_D) || Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT);
+
+        if (leftMovement && !rightMovement)
+        {
+            Move(-1);
+        }
+        else if (!leftMovement && rightMovement)
+        {
+            Move(1);
+        }
     }
 
     private void Projectiles()
@@ -45,14 +66,19 @@ class Player
         Raylib.DrawTexture(devil, (int)x, y, Color.WHITE);
     }
 
-    public void Shoot()
+    private void Shoot()
     {
         shots.Add(new Projectile((short)x, y));
     }
 
-    public void Move(int dir)
+    private void Move(int dir)
     {
         float movement = dir * speed;
         x += movement;
+    }
+
+    public Rectangle Hitbox()
+    {
+        return new Rectangle(x, y, devil.width, devil.height);
     }
 }

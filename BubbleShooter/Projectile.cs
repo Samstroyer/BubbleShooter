@@ -4,7 +4,7 @@ class Projectile
 {
     ushort x;
     float y;
-    float speed = 0.2f;
+    float speed = 1f;
 
     public Projectile(short startX, short startY)
     {
@@ -15,6 +15,11 @@ class Projectile
     public void Update()
     {
         y -= speed;
+    }
+
+    public Rectangle Hitbox()
+    {
+        return new Rectangle(x, y, IMGLIB.projectileImg.width, IMGLIB.projectileImg.height);
     }
 
     public void Show()
