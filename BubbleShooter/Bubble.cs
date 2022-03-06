@@ -64,8 +64,8 @@ class Bubble
 
     public dynamic Collision(Projectile p)
     {
-        Rectangle playerHitbox = p.Hitbox();
-        bool collided = Raylib.CheckCollisionCircleRec(new Vector2(x + CurrentTexture().width / 2, y), CurrentTexture().width / 2, playerHitbox);
+        Rectangle projectileHitbox = p.Hitbox();
+        bool collided = Raylib.CheckCollisionCircleRec(new Vector2(x + (CurrentTexture().width / 2), y), CurrentTexture().width / 2, projectileHitbox);
 
         if (collided)
         {

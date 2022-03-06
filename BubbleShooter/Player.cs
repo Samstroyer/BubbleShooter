@@ -75,6 +75,14 @@ class Player
     {
         float movement = dir * speed;
         x += movement;
+        if (x < 0)
+        {
+            x = 0;
+        }
+        else if (x >= Raylib.GetScreenWidth() - devil.width)
+        {
+            x = Raylib.GetScreenWidth() - devil.width;
+        }
     }
 
     public Rectangle Hitbox()

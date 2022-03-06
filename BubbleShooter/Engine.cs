@@ -5,7 +5,7 @@ using System;
 class Engine
 {
     List<Levels> content = new List<Levels>();
-    sbyte level = 6;
+    sbyte level = 0;
 
     public Engine()
     {
@@ -21,24 +21,17 @@ class Engine
 
     public void Run()
     {
-        while (!Raylib.WindowShouldClose())
+        while (!Raylib.WindowShouldClose() && level < content.Count)
         {
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.GRAY);
 
-            content[level].RunLevel();
+            if (content[level].RunLevel() > 0)
+            {
+                level++;
+            }
 
             Raylib.EndDrawing();
         }
-    }
-
-    private void Keybinds()
-    {
-        content[0].RunLevel();
-    }
-
-    private void Mousebinds()
-    {
-
     }
 }

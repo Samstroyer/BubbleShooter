@@ -36,7 +36,7 @@ class Levels
         SpawnBubbles();
     }
 
-    public void RunLevel()
+    public int RunLevel()
     {
         p.Run();
 
@@ -47,25 +47,33 @@ class Levels
 
             for (int j = p.shots.Count - 1; j >= 0; j--)
             {
-                if (i >= 0 && j >= 0 && i < p.shots.Count && j < p.shots.Count)
+                if (currLevelBubbles.Count > 0)
                 {
-                    dynamic result = currLevelBubbles[i].Collision(p.shots[j]);
-
-                    if (result is true)
+                    try
                     {
-                        currLevelBubbles.RemoveAt(i);
-                        p.shots.RemoveAt(j);
+                        dynamic result = currLevelBubbles[i].Collision(p.shots[j]);
+                        if (result is true)
+                        {
+                            currLevelBubbles.RemoveAt(i);
+                            p.shots.RemoveAt(j);
+                        }
+                        else if (result is Bubble[])
+                        {
+                            currLevelBubbles.RemoveAt(i);
+                            currLevelBubbles.Add(result[0]);
+                            currLevelBubbles.Add(result[1]);
+                            p.shots.RemoveAt(j);
+                        }
                     }
-                    else if (result is Bubble[])
+                    catch (ArgumentOutOfRangeException)
                     {
-                        currLevelBubbles.RemoveAt(i);
-                        currLevelBubbles.Add(result[0]);
-                        currLevelBubbles.Add(result[1]);
-                        p.shots.RemoveAt(j);
+                        break;
                     }
                 }
             }
         }
+
+        return currLevelBubbles.Count > 0 ? 0 : 1;
     }
 
     private void SpawnBubbles()
