@@ -1,10 +1,13 @@
-using System;
 using Raylib_cs;
+using System;
 
 class Engine
 {
     Player p = new Player();
-    //Levels lvls = new Levels();
+    Levels lvls0 = new Levels(0b_0000_0100);
+    Levels lvls1 = new Levels(0b_0010_0000);
+    Levels lvls2 = new Levels(0b_0011_0000);
+    Levels lvls3 = new Levels(0b_0011_1100);
     //Bubble b = new Bubble(200, 400, 0b_0000_0100, true);
 
 

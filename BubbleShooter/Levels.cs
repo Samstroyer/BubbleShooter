@@ -1,7 +1,9 @@
-using System.Numerics;
 using System.Collections.Generic;
+using System.Numerics;
 using Raylib_cs;
+using System;
 
+[Flags]
 enum Spawns : byte
 {
     smallest = 0b_0000_0000, // 0
@@ -18,11 +20,12 @@ class Levels
 {
     //Minsta bubblan man ska kunna spawna in i en bana är smaller.
     //Smallest ska inte kunna spawnas som en egen i start!
-    
+    Spawns spawns;
     List<Bubble> currLevelBubbles;
 
     public Levels(byte difficulty)
     {
-
+        var a = (Spawns)Convert.ToInt16(difficulty);
+        Console.WriteLine(a);
     }
 }
