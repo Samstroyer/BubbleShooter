@@ -45,6 +45,6 @@ class Engine
 
     private void Mousebinds()
     {
-        b.Show();
+        b.Update();
     }
 }
