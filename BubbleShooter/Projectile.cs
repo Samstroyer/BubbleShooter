@@ -19,7 +19,7 @@ class Projectile
 
     public void Show()
     {
-        Raylib.DrawTexture(IMGASE.projectileImg, x, (int)y, Color.WHITE);
+        Raylib.DrawTexture(IMGLIB.projectileImg, x, (int)y, Color.WHITE);
     }
 
     public bool OutOfScreen()
