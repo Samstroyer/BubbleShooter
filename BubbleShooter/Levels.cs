@@ -44,6 +44,7 @@ class Levels
         for (int i = currLevelBubbles.Count - 1; i >= 0; i--)
         {
             currLevelBubbles[i].Update();
+            p.BubbleCollision(currLevelBubbles[i]);
 
             for (int j = p.shots.Count - 1; j >= 0; j--)
             {

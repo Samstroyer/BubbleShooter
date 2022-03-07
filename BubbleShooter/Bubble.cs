@@ -15,7 +15,7 @@ enum States : byte
 
 class Bubble
 {
-    float x, y;
+    public float x, y;
     States state;
     bool travelingRight;
     Random ran = new Random();
@@ -111,7 +111,12 @@ class Bubble
         }
     }
 
-    private Texture2D CurrentTexture()
+    public void ResetPos()
+    {
+        y = 200;
+    }
+
+    public Texture2D CurrentTexture()
     {
         switch ((byte)state)
         {

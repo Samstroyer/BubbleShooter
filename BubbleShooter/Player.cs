@@ -1,14 +1,17 @@
 using System.Collections.Generic;
+using System.Threading;
+using System.Numerics;
 using Raylib_cs;
 using System;
 
 class Player
 {
-    float speed = 0.2f;
-    float x;
-    public const int y = 750;
     public List<Projectile> shots = new List<Projectile>();
+    public const int y = 750;
+    float speed = 0.2f;
     Texture2D devil;
+    byte hp = 3;
+    float x;
 
 
     public Player()
@@ -25,6 +28,14 @@ class Player
         Show();
         Projectiles();
         Movement();
+        if (hp <= 0)
+        {
+            Raylib.DrawRectangle(0, 0, Raylib.GetScreenWidth(), 200, Color.GRAY);
+            Raylib.DrawText("You lost!", 100, 50, 100, Color.BLACK);
+            Raylib.EndDrawing();
+            Thread.Sleep(4000);
+            Raylib.CloseWindow();
+        }
     }
 
     private void Movement()
@@ -64,6 +75,7 @@ class Player
     private void Show()
     {
         Raylib.DrawTexture(devil, (int)x, y, Color.WHITE);
+        Raylib.DrawText($"HP: {hp}", 100, 50, 100, Color.BLACK);
     }
 
     private void Shoot()
@@ -85,7 +97,18 @@ class Player
         }
     }
 
-    public Rectangle Hitbox()
+    public void BubbleCollision(Bubble b)
+    {
+        bool dead = Raylib.CheckCollisionCircleRec(new Vector2(b.x + (b.CurrentTexture().width / 2), b.y + b.CurrentTexture().height / 2), b.CurrentTexture().width / 2, Hitbox());
+        if (dead)
+        {
+            hp--;
+            b.ResetPos();
+            Console.WriteLine("You took damage!");
+        }
+    }
+
+    private Rectangle Hitbox()
     {
         return new Rectangle(x, y, devil.width, devil.height);
     }
