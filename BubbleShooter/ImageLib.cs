@@ -1,6 +1,8 @@
 
 using Raylib_cs;
 
+
+//Hela IMGLIB är bara ett bildbibliotek så att alla bilden är sparade i en static variabel i en klass
 class IMGLIB
 {
     public static Texture2D projectileImg = Raylib.LoadTexture(@"Images\bullet.png");
